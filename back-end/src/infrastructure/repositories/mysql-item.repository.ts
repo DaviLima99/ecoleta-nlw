@@ -28,6 +28,7 @@ export class MysqlItemRepository implements ItemRepository {
       itemEntity.imageUrl,
     );
     item.id = itemEntity.id;
+    item.id = itemEntity.id;
 
     return item;
   }

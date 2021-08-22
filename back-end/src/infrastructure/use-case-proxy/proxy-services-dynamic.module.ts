@@ -21,13 +21,14 @@ export class ProxyServicesDynamicModule {
           useFactory: (mysqlItemRepository: MysqlItemRepository) =>
             new UseCaseProxy(new GetItems(mysqlItemRepository)),
         },
-        {
-          inject: [MysqlItemRepository],
-          provide: ProxyServicesDynamicModule.CREATE_ITEM_PROXY_SERVICE,
-          useFactory: (mysqlItemRepository: MysqlItemRepository) =>
-            new UseCaseProxy(new GetItems(mysqlItemRepository)),
-        },
+        // {
+        //   inject: [MysqlItemRepository],
+        //   provide: ProxyServicesDynamicModule.CREATE_ITEM_PROXY_SERVICE,
+        //   useFactory: (mysqlItemRepository: MysqlItemRepository) =>
+        //     new UseCaseProxy(new GetItems(mysqlItemRepository)),
+        // },
       ],
+      exports: [ProxyServicesDynamicModule.GET_ALL_ITEMS_PROXY_SERVICE],
     };
   }
 }
