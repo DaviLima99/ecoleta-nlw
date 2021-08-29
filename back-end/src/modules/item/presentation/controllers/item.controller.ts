@@ -10,10 +10,11 @@ import {
 } from '@nestjs/common';
 import { FileInterceptor } from '@nestjs/platform-express';
 import { ApiBadRequestResponse, ApiResponse, ApiTags } from '@nestjs/swagger';
+import { diskStorage } from 'multer';
+import { editFileName } from '../../../../shared/filter/edit-filename.filter';
+import { imageFileFilter } from '../../../../shared/filter/upload-image.filter';
 import { ItemService } from '../../application/services/item.service';
 import { CreateItemDto } from '../dtos/create-item.dto';
-import { Express } from 'express';
-
 @Controller('/api/v1/item')
 @ApiTags('item')
 export class ItemController {
@@ -30,11 +31,18 @@ export class ItemController {
   @ApiBadRequestResponse({
     description: 'Missing or too many params',
   })
-  @UseInterceptors(FileInterceptor('image'))
-  // @Body(new ValidationPipe({ transform: true })) createItemDto: CreateItemDto
+  @UseInterceptors(
+    FileInterceptor('file', {
+      storage: diskStorage({
+        destination: './upload',
+        filename: editFileName,
+      }),
+      fileFilter: imageFileFilter,
+    }),
+  )
   @UsePipes(new ValidationPipe({ transform: true }))
-  craete(@Body() createItemDto: CreateItemDto) {
-    this.logger.debug(createItemDto);
+  craete(@UploadedFile() file, @Body() createItemDto: CreateItemDto) {
+    createItemDto.image = file.filename;
     return this.itemService.create(createItemDto);
   }
 }

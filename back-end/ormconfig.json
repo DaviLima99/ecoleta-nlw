@@ -10,6 +10,7 @@
     ],
     "charset": "utf8mb4_unicode_ci",
     "synchronize": true,
+    "logging": true,
     "cli": {
         "migrationsDir": "src/database/migrations"
     },
