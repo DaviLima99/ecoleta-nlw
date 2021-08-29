@@ -1,4 +1,5 @@
 import { Inject, Injectable } from '@nestjs/common';
+import { Item } from '../../infrastructure/typeorm/entities/item.entity';
 import { CreateItemDto } from '../../presentation/dtos/create-item.dto';
 import { IItemRepository } from '../repositories/item.repository';
 
@@ -9,6 +10,7 @@ export class ItemService {
   ) {}
 
   async create(createItemDto: CreateItemDto) {
-    return await this.itemRepository.create(createItemDto);
+    const item: Item = createItemDto.toItem();
+    return await this.itemRepository.save(item);
   }
 }

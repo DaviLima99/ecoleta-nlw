@@ -1,38 +1,30 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Item } from 'src/domain/item';
 import { Repository } from 'typeorm';
 import { IItemRepository } from '../../../application/repositories/item.repository';
-import { ItemEntity } from '../entities/item.entity';
+import { Item } from '../entities/item.entity';
 
 @Injectable()
 export class DataItemRepository implements IItemRepository {
   constructor(
-    @InjectRepository(ItemEntity)
-    private readonly itemEntityRepository: Repository<ItemEntity>,
+    @InjectRepository(Item)
+    private readonly ItemRepository: Repository<Item>,
   ) {}
-
-  async create(item: any): Promise<any> {
-    throw new Error('Method not implemented.');
-  }
 
   async save(item: Item): Promise<Item> {
     throw new Error('Method not implemented.');
   }
 
   async findAll(): Promise<Item[]> {
-    const foundItemsEntities: ItemEntity[] =
-      await this.itemEntityRepository.find();
+    const foundItemsEntities: Item[] = await this.ItemRepository.find();
 
-    return foundItemsEntities.map((itemEntity: ItemEntity) =>
-      this.toItem(itemEntity),
-    );
+    return foundItemsEntities;
   }
 
-  private toItem(itemEntity: ItemEntity): Item {
-    const item: Item = new Item(itemEntity.title, itemEntity.imageUrl);
-    item.id = itemEntity.id;
+  // private toItem(Item: Item): Item {
+  //   const item: Item = new Item(Item.title, Item.imageUrl);
+  //   item.id = Item.id;
 
-    return item;
-  }
+  //   return item;
+  // }
 }

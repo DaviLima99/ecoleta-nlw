@@ -1,48 +1,24 @@
 import { ApiProperty } from '@nestjs/swagger';
 import { IsNotEmpty } from 'class-validator';
+import { Item } from '../../infrastructure/typeorm/entities/item.entity';
 
 export class CreateItemDto {
   @ApiProperty({
-    description: 'Item name',
-    example: '',
+    description: 'Item title',
+    example: 'Pappers',
   })
-  @IsNotEmpty({ message: 'name field is required' })
-  name: string;
-  @ApiProperty({
-    description: 'Item name',
-    example: '',
-  })
-  @IsNotEmpty({ message: 'name field is required' })
+  @IsNotEmpty({ message: 'title field is required' })
+  title: string;
+
+  // @ApiProperty({
+  //   description: 'Item title',
+  //   example: 'Pappers',
+  // })
+  // @IsNotEmpty({ message: 'image field is required' })
   image: string;
-  @ApiProperty({
-    description: 'Item name',
-    example: '',
-  })
-  @IsNotEmpty({ message: 'name field is required' })
-  email: string;
-  @ApiProperty({
-    description: 'Item name',
-    example: '',
-  })
-  @IsNotEmpty({ message: 'name field is required' })
-  phone: string;
-  @ApiProperty({
-    description: 'Item name',
-    example: '',
-  })
-  @IsNotEmpty({ message: 'name field is required' })
-  latitude: number;
-  @ApiProperty({
-    description: 'Item name',
-    example: '',
-  })
-  @IsNotEmpty({ message: 'name field is required' })
-  longitude: number;
-  @ApiProperty({
-    description: 'Item name',
-    example: '',
-  })
-  @IsNotEmpty({ message: 'name field is required' })
-  city: string;
-  uf: string;
+
+  public toItem(): Item {
+    const item: Item = new Item(this.title, this.image);
+    return item;
+  }
 }

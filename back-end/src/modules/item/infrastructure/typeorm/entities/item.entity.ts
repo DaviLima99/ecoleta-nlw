@@ -1,7 +1,7 @@
 import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
 
 @Entity({ name: 'item' })
-export class ItemEntity {
+export class Item {
   @PrimaryGeneratedColumn('increment', { name: 'id' })
   id: number;
 
@@ -10,4 +10,9 @@ export class ItemEntity {
 
   @Column({ name: 'image_url', type: 'text', nullable: false })
   imageUrl: string;
+
+  constructor(title: string, imageUrl: string) {
+    this.title = title;
+    this.imageUrl = imageUrl;
+  }
 }
