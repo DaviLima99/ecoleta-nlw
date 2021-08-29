@@ -2,6 +2,12 @@
 /dist
 /node_modules
 
+#env
+.env
+
+#orm
+ormconfig.json
+
 # Logs
 logs
 *.log
