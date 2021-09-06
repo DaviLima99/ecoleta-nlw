@@ -1,5 +1,10 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
+import {
+  IPaginationOptions,
+  paginate,
+  Pagination,
+} from 'nestjs-typeorm-paginate';
 import { Repository } from 'typeorm';
 import { IItemRepository } from '../../../application/repositories/item.repository';
 import { Item } from '../entities/item.entity';
@@ -15,16 +20,7 @@ export class DataItemRepository implements IItemRepository {
     return await this.itemRepository.save(item);
   }
 
-  async findAll(): Promise<Item[]> {
-    const foundItemsEntities: Item[] = await this.itemRepository.find();
-
-    return foundItemsEntities;
+  async findAll(options: IPaginationOptions): Promise<Pagination<Item>> {
+    return paginate<Item>(this.itemRepository, options);
   }
-
-  // private toItem(Item: Item): Item {
-  //   const item: Item = new Item(Item.title, Item.imageUrl);
-  //   item.id = Item.id;
-
-  //   return item;
-  // }
 }
