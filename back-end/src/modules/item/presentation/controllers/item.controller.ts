@@ -53,7 +53,7 @@ export class ItemController {
     }),
   )
   @UsePipes(new ValidationPipe({ transform: true }))
-  async craete(
+  async create(
     @UploadedFile() file,
     @Body() createItemDto: CreateItemDto,
   ): Promise<ItemDto> {
@@ -63,7 +63,7 @@ export class ItemController {
   }
 
   @Get()
-  async list(
+  async findAll(
     @Query('page', new DefaultValuePipe(1), ParseIntPipe) page = 1,
     @Query('limit', new DefaultValuePipe(10), ParseIntPipe) limit = 10,
   ): Promise<Pagination<ItemDto>> {
