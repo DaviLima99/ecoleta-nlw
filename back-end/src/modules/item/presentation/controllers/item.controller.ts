@@ -57,6 +57,7 @@ export class ItemController {
     @UploadedFile() file,
     @Body() createItemDto: CreateItemDto,
   ): Promise<ItemDto> {
+    console.log(file);
     createItemDto.image = file.filename;
     const item = await this.itemService.create(createItemDto);
     return new ItemDto(item);

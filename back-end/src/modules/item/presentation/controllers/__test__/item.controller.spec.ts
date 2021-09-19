@@ -40,17 +40,22 @@ describe('ItemController', () => {
 
     it('should create a item', async () => {
       const dto = {
-        title: 'test',
-        file: 'test',
-        image: 'test',
+        title: 'papper',
       } as CreateItemDto;
 
-      const file = {};
+      const file = {
+        fieldname: 'file',
+        originalname: 'papper.svg',
+        encoding: '7bit',
+        mimetype: 'image/svg+xml',
+        destination: './upload',
+        filename: 'papper-3f29.svg',
+        path: 'upload\\papper-3f29.svg',
+        size: 568,
+      };
+
       const result = await itemController.create(file, dto);
-      expect(result).toEqual({
-        id: expect.any(Number),
-        title: dto.title,
-      });
+      expect(result.id).toBeDefined();
 
       expect(mockItemService.create).toBeCalled();
     });
