@@ -17,6 +17,7 @@ export default registerAs(
     entities: ['dist/**/*.entity{.ts,.js}'],
     charset: 'utf8mb4_unicode_ci',
     synchronize: process.env.ENV === 'dev' ? true : false,
+    autoLoadEntities: true,
     logging: process.env.ENV === 'dev' ? true : false,
     cli: {
       migrationsDir: 'src/database/migrations',

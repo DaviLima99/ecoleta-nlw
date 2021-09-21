@@ -7,7 +7,7 @@ import {
 } from 'typeorm';
 import { Item } from '../../../../item/infrastructure/typeorm/entities/item.entity';
 
-@Entity({ name: 'points' })
+@Entity('points')
 export class Point {
   @PrimaryGeneratedColumn('increment', { name: 'id' })
   id: number;
@@ -51,6 +51,28 @@ export class Point {
   @ManyToMany((type) => Item, {
     cascade: ['insert'],
   })
-  @JoinTable()
+  @JoinTable({ name: 'points_items' })
   items: Item[];
+
+  constructor(
+    image: string,
+    name: string,
+    email: string,
+    phone: string,
+    latitude: number,
+    longitude: number,
+    city: string,
+    uf: string,
+    items: Item[],
+  ) {
+    this.image = image;
+    this.name = name;
+    this.email = email;
+    this.phone = phone;
+    this.latitude = latitude;
+    this.longitude = longitude;
+    this.city = city;
+    this.uf = uf;
+    this.items = items;
+  }
 }

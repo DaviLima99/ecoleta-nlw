@@ -19,4 +19,10 @@ export class ItemRepository
   public async findAll(options: IPaginationOptions): Promise<Pagination<Item>> {
     return paginate<Item>(this, options);
   }
+
+  public async findByIds(ids: Array<number>): Promise<Array<Item>> {
+    return await this.find({
+      where: { id: ids },
+    });
+  }
 }
